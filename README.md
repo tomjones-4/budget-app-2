@@ -1,5 +1,14 @@
 # Plaid Pattern
 
+Ideas for further improvement:
+
+- Add a time range picker for transactions
+  - Options for preselects like "Last month", "Last 3 months", etc.
+  - Also option to pick calendar range
+- Add Venmo data
+  - Best solution is to integrate with Venmo API
+  - Alternatively, can manually record Venmo transactions
+
 ![Plaid Pattern client][client-img]
 
 This is a sample Personal Finance Manager application demonstrating an end-to-end [Plaid][plaid] integration, focused on linking items and fetching transaction data. You can view a simplified version of this demonstration app at [pattern.plaid.com](https://pattern.plaid.com).
@@ -16,23 +25,23 @@ Plaid Pattern apps are provided for illustrative purposes and are not meant to b
 
 ## Requirements
 
--   [Docker][docker] Version 2.0.0.3 (31259) or higher, installed, running, and signed in. If you're on **Windows**, check out [this link][wsl] to get set up in WSL.
--   [Plaid API keys][plaid-keys] - [sign up][plaid-signup] for a free Sandbox account if you don't already have one
--   [Sign up for a free ngrok account](https://dashboard.ngrok.com/signup) to obtain an authtoken
+- [Docker][docker] Version 2.0.0.3 (31259) or higher, installed, running, and signed in. If you're on **Windows**, check out [this link][wsl] to get set up in WSL.
+- [Plaid API keys][plaid-keys] - [sign up][plaid-signup] for a free Sandbox account if you don't already have one
+- [Sign up for a free ngrok account](https://dashboard.ngrok.com/signup) to obtain an authtoken
 
 ## Getting Started
 
 Note: We recommend running these commands in a unix terminal. Windows users can use a [WSL][wsl] terminal to access libraries like `make`.
 
 1. Clone the repo.
-    ```shell
-    git clone https://github.com/plaid/pattern.git
-    cd pattern
-    ```
+   ```shell
+   git clone https://github.com/plaid/pattern.git
+   cd pattern
+   ```
 1. Create the `.env` file.
-    ```shell
-    cp .env.template .env
-    ```
+   ```shell
+   cp .env.template .env
+   ```
 1. Update the `.env` file with your [Plaid API keys][plaid-keys] and OAuth redirect uri (in sandbox this is 'http<span>://localhost:3001/oauth-link'</span>).
 
 1. Update the `ngrok.yml` file in the ngrok folder with your ngrok authtoken.
@@ -40,18 +49,18 @@ Note: We recommend running these commands in a unix terminal. Windows users can 
 1. (Optional, only required if testing OAuth with redirect URIs) You will also need to configure an allowed redirect URI for your client ID through the [Plaid developer dashboard](https://dashboard.plaid.com/team/api).
 
 1. Start the services. The first run may take a few minutes as Docker images are pulled/built for the first time.
-    ```shell
-    make start
-    ```
+   ```shell
+   make start
+   ```
 1. Open http://localhost:3001 in a web browser.
 1. View the logs
-    ```shell
-    make logs
-    ```
+   ```shell
+   make logs
+   ```
 1. When you're finished, stop the services.
-    ```shell
-    make stop
-    ```
+   ```shell
+   make stop
+   ```
 
 ## Additional Commands
 
@@ -61,10 +70,10 @@ All available commands can be seen by calling `make help`.
 
 As a modern full-stack application, Pattern consists of multiple services handling different segments of the stack:
 
--   [`client`][client-readme] runs a [React]-based single-page web frontend
--   [`server`][server-readme] runs an application back-end server using [NodeJS] and [Express]
--   [`database`][database-readme] runs a [PostgreSQL][postgres] database
--   [`ngrok`][ngrok-readme] exposes a [ngrok] tunnel from your local machine to the Internet to receive webhooks
+- [`client`][client-readme] runs a [React]-based single-page web frontend
+- [`server`][server-readme] runs an application back-end server using [NodeJS] and [Express]
+- [`database`][database-readme] runs a [PostgreSQL][postgres] database
+- [`ngrok`][ngrok-readme] exposes a [ngrok] tunnel from your local machine to the Internet to receive webhooks
 
 We use [Docker Compose][docker-compose] to orchestrate these services. As such, each individual service has its own Dockerfile, which Docker Compose reads when bringing up the services.
 
@@ -249,12 +258,12 @@ This table stores responses from the Plaid API for client requests to the Plaid 
 
 User flows that this table captures (based on the client implementation, which hooks into the `onExit` and `onSuccess` Link callbacks):
 
--   User opens Link, closes without trying to connect an account.
-    This will have type `exit` but no request_id, error_type, or error_code.
--   User tries to connect an account, fails, and closes link.
-    This will have type `exit` and will have a request_id, error_type, and error_code.
--   User successfully connects an account.
-    This will have type `success` but no request_id, error_type, or error_code.
+- User opens Link, closes without trying to connect an account.
+  This will have type `exit` but no request_id, error_type, or error_code.
+- User tries to connect an account, fails, and closes link.
+  This will have type `exit` and will have a request_id, error_type, and error_code.
+- User successfully connects an account.
+  This will have type `success` but no request_id, error_type, or error_code.
 
 ### plaid_api_events_table
 
@@ -265,7 +274,7 @@ If the request returned an error, the error_type and error_code columns will be 
 
 ## Learn More
 
--   [PostgreSQL documentation][postgres-docs]
+- [PostgreSQL documentation][postgres-docs]
 
 # Plaid Pattern - ngrok
 
@@ -285,8 +294,8 @@ This image is a copy of the Docker Hub image [wernight/ngrok](https://hub.docker
 
 ## Learn More
 
--   https://hub.docker.com/r/wernight/ngrok/dockerfile
--   https://github.com/wernight/docker-ngrok/tree/202c4692cbf1bbfd5059b6ac56bece42e90bfb82
+- https://hub.docker.com/r/wernight/ngrok/dockerfile
+- https://github.com/wernight/docker-ngrok/tree/202c4692cbf1bbfd5059b6ac56bece42e90bfb82
 
 ## Troubleshooting
 
@@ -294,10 +303,10 @@ See [`docs/troubleshooting.md`][troubleshooting].
 
 ## Additional Resources
 
--   For an overview of the Plaid platform and products, refer to this [Quickstart guide][plaid-quickstart].
--   Check out this high-level [introduction to Plaid Link](https://blog.plaid.com/plaid-link/).
--   Find comprehensive information on Plaid API endpoints in the [API documentation][plaid-docs].
--   Questions? Please head to the [Help Center][plaid-help] or [open a Support ticket][plaid-support-ticket].
+- For an overview of the Plaid platform and products, refer to this [Quickstart guide][plaid-quickstart].
+- Check out this high-level [introduction to Plaid Link](https://blog.plaid.com/plaid-link/).
+- Find comprehensive information on Plaid API endpoints in the [API documentation][plaid-docs].
+- Questions? Please head to the [Help Center][plaid-help] or [open a Support ticket][plaid-support-ticket].
 
 ## License
 
